@@ -23,6 +23,25 @@ const schema = makeExecutableSchema({
   resolvers: resolvers,
 });
 
+app.use(
+  '/graphiql',
+  graphiqlExpress({
+    endpointURL: '/graphql',
+  })
+);
+
+app.use(
+  '/graphql',
+  bodyParser.json(),
+  graphqlExpress({
+    schema,
+    context: {
+      Recipe,
+      User,
+    },
+  })
+);
+
 mongoose
   .connect(process.env.MONGO_URI, {
     useCreateIndex: true,
