@@ -5,6 +5,7 @@ const Recipe = require('./models/Recipe');
 const User = require('./models/User');
 
 const bodyParser = require('body-parser');
+const cors = require('cors')
 
 const app = express();
 
@@ -22,6 +23,13 @@ const schema = makeExecutableSchema({
   typeDefs: typeDefs,
   resolvers: resolvers,
 });
+
+const corsOption = {
+  origin: "http://localhost:3000",
+  credentials: true
+}
+
+app.use(cors(corsOption))
 
 app.use(
   '/graphiql',
